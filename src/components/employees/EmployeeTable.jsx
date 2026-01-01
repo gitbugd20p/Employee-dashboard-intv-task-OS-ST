@@ -1,22 +1,7 @@
 import { EditOutlined, FileExcelOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Tag } from "antd";
 
-const EmployeeTable = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      department: "UI/UX",
-      status: "active",
-    },
-    {
-      key: "2",
-      name: "John",
-      department: "Engineering",
-      status: "archived",
-    },
-  ];
-
+const EmployeeTable = ({ data }) => {
   const columns = [
     {
       title: "Name",
@@ -76,7 +61,7 @@ const EmployeeTable = () => {
 
   return (
     <Table
-      dataSource={dataSource}
+      dataSource={data}
       columns={columns}
       pagination={{
         showSizeChanger: true,
@@ -85,7 +70,7 @@ const EmployeeTable = () => {
       }}
       style={{
         margin: "24px 16px",
-        padding: 24,
+        padding: 16,
       }}
     />
   );

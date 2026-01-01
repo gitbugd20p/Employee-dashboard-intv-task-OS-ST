@@ -32,7 +32,10 @@ export const useEmployees = () => {
     try {
       setAllEmployees((prev) => [
         ...prev,
-        { ...employee, id: crypto.randomUUID(), status: "active" },
+        {
+          ...employee,
+          id: crypto.randomUUID(),
+        },
       ]);
     } catch (error) {
       console.log("Failed to add employee!", error);
