@@ -1,5 +1,4 @@
 import EmployeeTable from "../components/employees/EmployeeTable";
-import { Space } from "antd";
 
 const Employees = () => {
   return (

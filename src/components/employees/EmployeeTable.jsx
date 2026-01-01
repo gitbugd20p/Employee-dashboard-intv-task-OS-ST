@@ -8,14 +8,12 @@ const EmployeeTable = () => {
       name: "Mike",
       department: "UI/UX",
       status: "active",
-      action: "ACCCCC",
     },
     {
       key: "2",
       name: "John",
       department: "Engineering",
       status: "archived",
-      action: "ADCDDDD",
     },
   ];
 
@@ -69,7 +67,7 @@ const EmployeeTable = () => {
             variant="outlined"
             icon={<FileExcelOutlined />}
           >
-            Archived
+            Archive
           </Button>
         </Space>
       ),
