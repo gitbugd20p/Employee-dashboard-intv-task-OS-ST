@@ -134,12 +134,11 @@ const EditEmployeeDrawer = ({
         <Form.Item
           name="status"
           label="Status"
-          initialValue={"active"}
           rules={[{ required: true, message: "Please select a status" }]}
         >
           <Radio.Group>
             <Radio value="active">Active</Radio>
-            <Radio value="archive">Archive</Radio>
+            <Radio value="archived">Archive</Radio>
           </Radio.Group>
         </Form.Item>
 

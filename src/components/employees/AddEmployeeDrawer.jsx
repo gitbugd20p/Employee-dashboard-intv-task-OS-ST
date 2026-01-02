@@ -118,7 +118,7 @@ const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
         >
           <Radio.Group>
             <Radio value="active">Active</Radio>
-            <Radio value="archive">Archive</Radio>
+            <Radio value="archived">Archive</Radio>
           </Radio.Group>
         </Form.Item>
 

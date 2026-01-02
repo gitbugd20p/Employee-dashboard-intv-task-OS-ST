@@ -1,7 +1,7 @@
 import { EditOutlined, FileExcelOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Tag } from "antd";
 
-const EmployeeTable = ({ data, onEdit }) => {
+const EmployeeTable = ({ data, onEdit, onArchive }) => {
   const columns = [
     {
       title: "Name",
@@ -54,13 +54,19 @@ const EmployeeTable = ({ data, onEdit }) => {
             Edit
           </Button>
 
-          <Button
-            color="danger"
-            variant="outlined"
-            icon={<FileExcelOutlined />}
-          >
-            Archive
-          </Button>
+          {/* Archive button on if status is active */}
+          {record.status === "active" && (
+            <Button
+              color="danger"
+              variant="outlined"
+              icon={<FileExcelOutlined />}
+              onClick={() => {
+                onArchive(record.id);
+              }}
+            >
+              Archive
+            </Button>
+          )}
         </Space>
       ),
     },

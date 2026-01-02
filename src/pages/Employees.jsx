@@ -58,6 +58,7 @@ const Employees = () => {
             setOpenEditDrawer(true);
             setEditEmployeeInfo(employee);
           }}
+          onArchive={archiveEmployee}
         />
       </div>
     </>
