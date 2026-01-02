@@ -3,6 +3,7 @@ import EmployeeTable from "../components/employees/EmployeeTable";
 import { useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
 import { useEmployees } from "./../hooks/useEmployees";
+import EditEmployeeDrawer from "../components/employees/EditEmployeeDrawer";
 
 const Employees = () => {
   // Employee info with functions
@@ -14,8 +15,14 @@ const Employees = () => {
     archiveEmployee,
   } = useEmployees();
 
-  // Drawer state
+  // Add drawer state
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  // Edit drawer
+  const [openEditDrawer, setOpenEditDrawer] = useState(false);
+
+  // Edit employee data
+  const [editEmployeeInfo, setEditEmployeeInfo] = useState(null);
 
   return (
     <>
@@ -36,8 +43,22 @@ const Employees = () => {
           onAdd={(employee) => addEmployee(employee)}
         />
 
+        {/* Edit drawer */}
+        <EditEmployeeDrawer
+          onOpen={openEditDrawer}
+          onClose={() => setOpenEditDrawer(false)}
+          editEmployeeInfo={editEmployeeInfo}
+          onUpdate={updateEmployee}
+        />
+
         {/* Table */}
-        <EmployeeTable data={allEmployees} />
+        <EmployeeTable
+          data={allEmployees}
+          onEdit={(employee) => {
+            setOpenEditDrawer(true);
+            setEditEmployeeInfo(employee);
+          }}
+        />
       </div>
     </>
   );

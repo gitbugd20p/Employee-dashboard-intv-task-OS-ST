@@ -8,43 +8,64 @@ import {
   Select,
   Space,
 } from "antd";
+import dayjs from "dayjs";
+import { useEffect } from "react";
 
-const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
+const EditEmployeeDrawer = ({
+  onOpen,
+  onClose,
+  editEmployeeInfo,
+  onUpdate,
+}) => {
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  //   preload data
+  useEffect(() => {
+    if (editEmployeeInfo) {
+      const formattedValues = {
+        ...editEmployeeInfo,
+        joiningDate: dayjs(editEmployeeInfo.joiningDate),
+      };
+      form.setFieldsValue(formattedValues);
+    }
+    // console.log(editEmployeeInfo);
+  }, [editEmployeeInfo, form]);
+
+  //   form submit
+  const handleUpdate = (values, isContinue = false) => {
     // Date formatting
     values = {
       ...values,
       joiningDate: values.joiningDate.format("YYYY-MM-DD"),
+      id: editEmployeeInfo.id,
     };
 
-    onAdd(values);
-    onClose();
-    form.resetFields();
-  };
-
-  const onReset = () => {
-    form.resetFields();
+    if (isContinue) {
+      onUpdate(values);
+    } else {
+      onUpdate(values);
+      onClose();
+      form.resetFields();
+    }
   };
 
   return (
     <Drawer
-      title="Add Employee"
+      title="Edit Employee"
       closable={{ "aria-label": "Close Button" }}
       onClose={onClose}
       open={onOpen}
       size={600}
     >
       <h2 className="pb-4 text-center text-4xl font-bold">
-        Add Employee information
+        Edit Employee information
       </h2>
 
       <Form
         layout="vertical"
         style={{ maxWidth: 500, padding: "24px" }}
         form={form}
-        onFinish={onFinish}
+        onFinish={(values) => handleUpdate(values, false)}
       >
         {/* Name */}
         <Form.Item
@@ -125,11 +146,16 @@ const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
         {/* Submit and reset form*/}
         <Space>
           <Button type="primary" htmlType="submit">
-            Submit
+            Save
           </Button>
 
-          <Button htmlType="button" onClick={onReset}>
-            Reset
+          <Button
+            htmlType="button"
+            onClick={() =>
+              form.validateFields().then((values) => handleUpdate(values, true))
+            }
+          >
+            Save & Continue
           </Button>
         </Space>
       </Form>
@@ -137,4 +163,4 @@ const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
   );
 };
 
-export default AddEmployeeDrawer;
+export default EditEmployeeDrawer;

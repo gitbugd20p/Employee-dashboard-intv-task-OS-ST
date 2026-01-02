@@ -1,7 +1,7 @@
 import { EditOutlined, FileExcelOutlined } from "@ant-design/icons";
 import { Button, Space, Table, Tag } from "antd";
 
-const EmployeeTable = ({ data }) => {
+const EmployeeTable = ({ data, onEdit }) => {
   const columns = [
     {
       title: "Name",
@@ -43,7 +43,14 @@ const EmployeeTable = ({ data }) => {
       key: "actions",
       render: (_, record) => (
         <Space>
-          <Button color="primary" variant="outlined" icon={<EditOutlined />}>
+          <Button
+            color="primary"
+            variant="outlined"
+            icon={<EditOutlined />}
+            onClick={() => {
+              onEdit(record);
+            }}
+          >
             Edit
           </Button>
 
