@@ -9,7 +9,7 @@ import {
   Space,
 } from "antd";
 
-const AddEmployeeDrawer = ({ onOpen, onClose }) => {
+const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -18,8 +18,12 @@ const AddEmployeeDrawer = ({ onOpen, onClose }) => {
       ...values,
       joiningDate: values.joiningDate.format("YYYY-MM-DD"),
     };
-    console.log(values);
+
+    onAdd(values);
+    onClose();
+    form.resetFields();
   };
+
   const onReset = () => {
     form.resetFields();
   };

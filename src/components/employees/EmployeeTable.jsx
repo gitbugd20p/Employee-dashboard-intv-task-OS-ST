@@ -61,6 +61,7 @@ const EmployeeTable = ({ data }) => {
 
   return (
     <Table
+      rowKey="id"
       dataSource={data}
       columns={columns}
       pagination={{

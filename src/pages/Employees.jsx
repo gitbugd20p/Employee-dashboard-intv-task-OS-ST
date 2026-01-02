@@ -2,25 +2,21 @@ import { Button, Space } from "antd";
 import EmployeeTable from "../components/employees/EmployeeTable";
 import { useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
+import { useEmployees } from "./../hooks/useEmployees";
 
 const Employees = () => {
-  // Drawer state
-  const [openDrawer, setOpenDrawer] = useState(true);
+  // Employee info with functions
+  const {
+    allEmployees,
+    loading,
+    addEmployee,
+    updateEmployee,
+    archiveEmployee,
+  } = useEmployees();
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      department: "UI/UX",
-      status: "active",
-    },
-    {
-      key: "2",
-      name: "John",
-      department: "Engineering",
-      status: "archived",
-    },
-  ];
+  // Drawer state
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   return (
     <>
       <div className="w-full">
@@ -37,10 +33,11 @@ const Employees = () => {
         <AddEmployeeDrawer
           onOpen={openDrawer}
           onClose={() => setOpenDrawer(false)}
+          onAdd={(employee) => addEmployee(employee)}
         />
 
         {/* Table */}
-        <EmployeeTable data={dataSource} />
+        <EmployeeTable data={allEmployees} />
       </div>
     </>
   );
