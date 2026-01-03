@@ -1,4 +1,4 @@
-import { Button, Space, Switch } from "antd";
+import { Button, Empty, Space, Spin, Switch } from "antd";
 import EmployeeTable from "../components/employees/EmployeeTable";
 import { useEffect, useMemo, useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
@@ -9,6 +9,7 @@ import MultiFilterEmployee from "../components/employees/MultiFilterEmployee";
 import dayjs from "dayjs";
 
 import isBetween from "dayjs/plugin/isBetween";
+import { LoadingOutlined } from "@ant-design/icons";
 dayjs.extend(isBetween);
 
 const Employees = () => {
@@ -111,6 +112,45 @@ const Employees = () => {
         })
     );
   }, [allEmployees, debounceText, multiFilter, isActive]);
+
+  if (loading) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center">
+        <div>
+          {/* <Spin indicator={<LoadingOutlined style={{ fontSize: 96 }} spin />} /> */}
+          <Spin size="large" />
+        </div>
+        <h1 className="p-8 text-4xl font-bold">Data Loading...</h1>
+      </div>
+    );
+  }
+
+  if (allEmployees.length === 0) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center gap-4">
+        {/* Empty data state */}
+        <Empty description="NO Data..." />
+
+        <h1 className="text-4xl font-semibold">
+          To see employee data, Add employee...
+        </h1>
+
+        {/* Add employee */}
+        <Space>
+          <Button onClick={() => setOpenDrawer(true)} type="primary">
+            Add Employee
+          </Button>
+        </Space>
+
+        {/* Add drawer */}
+        <AddEmployeeDrawer
+          onOpen={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          onAdd={(employee) => addEmployee(employee)}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
