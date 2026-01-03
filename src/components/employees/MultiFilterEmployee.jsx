@@ -3,8 +3,9 @@ import { Button, DatePicker, Form, Select } from "antd";
 const { RangePicker } = DatePicker;
 
 const MultiFilterEmployee = ({ multiFilter, setMultiFilter, onReset }) => {
+  const [form] = Form.useForm();
   return (
-    <Form layout="inline" style={{ padding: "24px" }}>
+    <Form layout="inline" style={{ padding: "24px" }} form={form}>
       {/* Department */}
       <Form.Item label="Department" name="department">
         <Select
@@ -57,7 +58,14 @@ const MultiFilterEmployee = ({ multiFilter, setMultiFilter, onReset }) => {
       </Form.Item>
 
       {/* Reset Form */}
-      <Button color="purple" variant="filled" onClick={onReset}>
+      <Button
+        color="purple"
+        variant="filled"
+        onClick={() => {
+          onReset();
+          form.resetFields();
+        }}
+      >
         Reset
       </Button>
     </Form>

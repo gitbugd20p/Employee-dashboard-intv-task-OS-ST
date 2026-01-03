@@ -1,4 +1,4 @@
-import { Button, Space } from "antd";
+import { Button, Space, Switch } from "antd";
 import EmployeeTable from "../components/employees/EmployeeTable";
 import { useEffect, useMemo, useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
@@ -52,7 +52,7 @@ const Employees = () => {
     dateRange: null,
   });
 
-  console.log(multiFilter);
+  const [isActive, setIsActive] = useState(true);
 
   // Filters the main data for search and multi filters
   const filteredEmployees = useMemo(() => {
@@ -103,8 +103,14 @@ const Employees = () => {
           // return true, for passed all other above checks,
           return true;
         })
+
+        // Filter for active or archived (switch)
+        .filter((employee) => {
+          const isActiveStatus = isActive ? "active" : "archived";
+          return employee.status === isActiveStatus;
+        })
     );
-  }, [allEmployees, debounceText, multiFilter]);
+  }, [allEmployees, debounceText, multiFilter, isActive]);
 
   return (
     <>
@@ -142,6 +148,16 @@ const Employees = () => {
                   dateRange: null,
                 });
               }}
+            />
+          </Space>
+
+          {/* Filter: active or archived */}
+          <Space vertical>
+            <Switch
+              checkedChildren="Active"
+              unCheckedChildren="Archived"
+              checked={isActive}
+              onChange={() => setIsActive(!isActive)}
             />
           </Space>
         </Space>
