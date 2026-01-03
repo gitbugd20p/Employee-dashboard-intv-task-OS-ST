@@ -5,6 +5,11 @@ import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
 import { useEmployees } from "./../hooks/useEmployees";
 import EditEmployeeDrawer from "../components/employees/EditEmployeeDrawer";
 import Search from "antd/es/transfer/search";
+import MultiFilterEmployee from "../components/employees/MultiFilterEmployee";
+import dayjs from "dayjs";
+
+import isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 
 const Employees = () => {
   // Employee info with functions
@@ -40,6 +45,15 @@ const Employees = () => {
     return () => clearTimeout(debounceTimerFunction);
   }, [searchText]);
 
+  // Multi filter state
+  const [multiFilter, setMultiFilter] = useState({
+    department: null,
+    role: null,
+    dateRange: null,
+  });
+
+  console.log(multiFilter);
+
   // Filters the main data for search and multi filters
   const filteredEmployees = useMemo(() => {
     return (
@@ -56,8 +70,41 @@ const Employees = () => {
             employee.status.toLowerCase().includes(text)
           );
         })
+
+        // Multi filter
+        .filter((employee) => {
+          // for department
+          if (
+            multiFilter.department &&
+            multiFilter.department !== employee.department
+          ) {
+            return false;
+          }
+
+          // for role
+          if (multiFilter.role && multiFilter.role !== employee.role) {
+            return false;
+          }
+
+          // joining Date
+          if (
+            multiFilter.dateRange &&
+            multiFilter.dateRange[0] &&
+            multiFilter.dateRange[1]
+          ) {
+            const startDate = multiFilter.dateRange[0];
+            const endDate = multiFilter.dateRange[1];
+
+            const empJoiningDate = dayjs(employee.joiningDate);
+
+            return empJoiningDate.isBetween(startDate, endDate, "day", []);
+          }
+
+          // return true, for passed all other above checks,
+          return true;
+        })
     );
-  }, [allEmployees, debounceText]);
+  }, [allEmployees, debounceText, multiFilter]);
 
   return (
     <>
@@ -80,6 +127,21 @@ const Employees = () => {
               style={{ width: 200 }}
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
+            />
+          </Space>
+
+          {/* Multi-filters component*/}
+          <Space>
+            <MultiFilterEmployee
+              multiFilter={multiFilter}
+              setMultiFilter={setMultiFilter}
+              onReset={() => {
+                setMultiFilter({
+                  department: null,
+                  role: null,
+                  dateRange: null,
+                });
+              }}
             />
           </Space>
         </Space>
