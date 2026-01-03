@@ -1,5 +1,5 @@
 import { EditOutlined, FileExcelOutlined } from "@ant-design/icons";
-import { Button, message, Space, Table, Tag } from "antd";
+import { Button, message, Progress, Space, Table, Tag } from "antd";
 
 const EmployeeTable = ({ data, onEdit, onArchive }) => {
   const columns = [
@@ -22,7 +22,7 @@ const EmployeeTable = ({ data, onEdit, onArchive }) => {
       sorter: true,
     },
     {
-      title: "JoiningDate",
+      title: "Joining Date",
       dataIndex: "joiningDate",
       key: "joiningDate",
       sorter: true,
@@ -37,6 +37,36 @@ const EmployeeTable = ({ data, onEdit, onArchive }) => {
         ) : (
           <Tag color="red">{text.toUpperCase()}</Tag>
         ),
+    },
+    {
+      title: "Performance Score",
+      dataIndex: "performanceScore",
+      key: "performanceScore",
+      render: (number) => {
+        // color
+        const performanceScoreColor = (score) => {
+          if (score <= 20) return "#ff4d4f";
+          if (score <= 40) return "#fa8c16";
+          if (score <= 60) return "#fadb14";
+          if (score <= 80) return "#1890ff";
+          return "#52c41a";
+        };
+
+        // if performance score is not available
+        if (!number)
+          return (
+            <Progress type="dashboard" size="small" format={() => "N/A"} />
+          );
+
+        return (
+          <Progress
+            type="dashboard"
+            percent={number}
+            size="small"
+            strokeColor={performanceScoreColor(number)}
+          />
+        );
+      },
     },
     {
       title: "Actions",

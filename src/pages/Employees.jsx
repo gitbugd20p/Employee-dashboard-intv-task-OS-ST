@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Empty,
+  Progress,
   Radio,
   Space,
   Spin,
@@ -131,6 +132,15 @@ const Employees = () => {
         })
     );
   }, [allEmployees, debounceText, multiFilter, isActive]);
+
+  // Performance score color
+  const performanceScoreColor = (score) => {
+    if (score <= 20) return "#ff4d4f";
+    if (score <= 40) return "#fa8c16";
+    if (score <= 60) return "#fadb14";
+    if (score <= 80) return "#1890ff";
+    return "#52c41a";
+  };
 
   if (loading) {
     return (
@@ -292,12 +302,38 @@ const Employees = () => {
                       }
                       actions={actions}
                     />
-                    <p>
-                      <strong>Dept:</strong> {emp.department}
-                    </p>
-                    <p>
-                      <strong>Joined:</strong> {emp.joiningDate}
-                    </p>
+
+                    {/* Dept, joined-date and performance-score */}
+                    <div className="flex justify-between">
+                      <div>
+                        <p className="capitalize">
+                          <strong>Dept:</strong> {emp.department}
+                        </p>
+                        <p>
+                          <strong>Joined:</strong> {emp.joiningDate}
+                        </p>
+                      </div>
+                      <div>
+                        <div className="p-2 text-center">
+                          <Progress
+                            type="dashboard"
+                            percent={emp.performanceScore}
+                            size="small"
+                            strokeColor={performanceScoreColor(
+                              emp.performanceScore,
+                            )}
+                          />
+                        </div>
+                        <p>
+                          <strong>
+                            <Tag color="purple">
+                              Performance Score{emp.performanceScore}
+                            </Tag>
+                          </strong>
+                        </p>
+                      </div>
+                    </div>
+
                     <p className="pt-2">
                       <Tag
                         color={emp.status === "active" ? "green" : "volcano"}

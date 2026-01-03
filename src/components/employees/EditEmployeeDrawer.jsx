@@ -4,6 +4,7 @@ import {
   Drawer,
   Form,
   Input,
+  InputNumber,
   message,
   Radio,
   Select,
@@ -132,6 +133,16 @@ const EditEmployeeDrawer = ({
           rules={[{ required: true, message: "Please input!" }]}
         >
           <DatePicker className="w-full" />
+        </Form.Item>
+
+        {/* Input number */}
+        <Form.Item label="Performance Score" name="performanceScore">
+          <InputNumber
+            style={{ width: "100%" }}
+            min={1}
+            max={100}
+            placeholder="Enter a number between 1 to 100"
+          />
         </Form.Item>
 
         {/* Status */}
