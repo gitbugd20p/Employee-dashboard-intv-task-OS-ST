@@ -1,5 +1,5 @@
 import { EditOutlined, FileExcelOutlined } from "@ant-design/icons";
-import { Button, Space, Table, Tag } from "antd";
+import { Button, message, Space, Table, Tag } from "antd";
 
 const EmployeeTable = ({ data, onEdit, onArchive }) => {
   const columns = [
@@ -62,6 +62,8 @@ const EmployeeTable = ({ data, onEdit, onArchive }) => {
               icon={<FileExcelOutlined />}
               onClick={() => {
                 onArchive(record.id);
+                // Archive success message
+                message.success("Employee archived successfully!");
               }}
             >
               Archive

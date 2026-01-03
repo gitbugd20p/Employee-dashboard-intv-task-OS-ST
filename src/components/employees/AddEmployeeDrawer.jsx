@@ -4,6 +4,7 @@ import {
   Drawer,
   Form,
   Input,
+  message,
   Radio,
   Select,
   Space,
@@ -20,6 +21,11 @@ const AddEmployeeDrawer = ({ onOpen, onClose, onAdd }) => {
     };
 
     onAdd(values);
+
+    // Success message
+    message.success("Employee added successfully!");
+
+    // Closing drawer
     onClose();
     form.resetFields();
   };

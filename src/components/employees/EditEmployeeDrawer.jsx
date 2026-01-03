@@ -4,6 +4,7 @@ import {
   Drawer,
   Form,
   Input,
+  message,
   Radio,
   Select,
   Space,
@@ -47,6 +48,9 @@ const EditEmployeeDrawer = ({
       onClose();
       form.resetFields();
     }
+
+    // Success message
+    message.success("Employee information updated successfully!");
   };
 
   return (
