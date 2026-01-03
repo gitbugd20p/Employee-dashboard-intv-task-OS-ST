@@ -1,4 +1,15 @@
-import { Button, Empty, Space, Spin, Switch } from "antd";
+import {
+  Avatar,
+  Button,
+  Card,
+  Empty,
+  Radio,
+  Space,
+  Spin,
+  Switch,
+  Tag,
+  Tooltip,
+} from "antd";
 import EmployeeTable from "../components/employees/EmployeeTable";
 import { useEffect, useMemo, useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
@@ -9,7 +20,11 @@ import MultiFilterEmployee from "../components/employees/MultiFilterEmployee";
 import dayjs from "dayjs";
 
 import isBetween from "dayjs/plugin/isBetween";
-import { LoadingOutlined } from "@ant-design/icons";
+import {
+  CheckOutlined,
+  EditOutlined,
+  FileExcelOutlined,
+} from "@ant-design/icons";
 dayjs.extend(isBetween);
 
 const Employees = () => {
@@ -53,7 +68,11 @@ const Employees = () => {
     dateRange: null,
   });
 
+  // Status switch state
   const [isActive, setIsActive] = useState(true);
+
+  // View type state
+  const [isViewType, setIsViewType] = useState("table");
 
   // Filters the main data for search and multi filters
   const filteredEmployees = useMemo(() => {
@@ -157,7 +176,7 @@ const Employees = () => {
       <div className="w-full">
         <h1 className="py-8 text-4xl font-bold">Employee Records</h1>
 
-        <Space>
+        <Space className="w-full">
           {/* Add employee button (drawer) */}
           <Space>
             <Button onClick={() => setOpenDrawer(true)} type="primary">
@@ -217,15 +236,89 @@ const Employees = () => {
           onUpdate={updateEmployee}
         />
 
-        {/* Table */}
-        <EmployeeTable
-          data={filteredEmployees}
-          onEdit={(employee) => {
-            setOpenEditDrawer(true);
-            setEditEmployeeInfo(employee);
-          }}
-          onArchive={archiveEmployee}
-        />
+        {/* Table or Card view selector */}
+        <Space>
+          <h1 className="font-bold">View Type:</h1>
+          <Radio.Group
+            value={isViewType}
+            onChange={() =>
+              setIsViewType(isViewType === "table" ? "card" : "table")
+            }
+          >
+            <Radio.Button value="table">Table</Radio.Button>
+            <Radio.Button value="card">Card</Radio.Button>
+          </Radio.Group>
+        </Space>
+
+        {/* Table or Card view*/}
+        {isViewType === "table" ? (
+          <EmployeeTable
+            data={filteredEmployees}
+            onEdit={(employee) => {
+              setOpenEditDrawer(true);
+              setEditEmployeeInfo(employee);
+            }}
+            onArchive={archiveEmployee}
+          />
+        ) : (
+          <div className="grid grid-cols-4 gap-3 p-8">
+            {filteredEmployees.map((emp) => {
+              const actions = [
+                <Tooltip title="Edit Employee" key="edit">
+                  <EditOutlined
+                    onClick={() => {
+                      setOpenEditDrawer(true);
+                      setEditEmployeeInfo(emp);
+                    }}
+                  />
+                </Tooltip>,
+                <Tooltip title="ARchive Employee" key="archive">
+                  <FileExcelOutlined onClick={() => archiveEmployee(emp.id)} />
+                </Tooltip>,
+              ];
+              return (
+                <div key={emp.id} className="shadow">
+                  <Card actions={actions} style={{ minWidth: 300 }}>
+                    <Card.Meta
+                      className="pb-3"
+                      avatar={
+                        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=8" />
+                      }
+                      title={emp.name}
+                      description={
+                        <Tag color={"blue"} className="capitalize">
+                          {emp.role}
+                        </Tag>
+                      }
+                      actions={actions}
+                    />
+                    <p>
+                      <strong>Dept:</strong> {emp.department}
+                    </p>
+                    <p>
+                      <strong>Joined:</strong> {emp.joiningDate}
+                    </p>
+                    <p className="pt-2">
+                      <Tag
+                        color={emp.status === "active" ? "green" : "volcano"}
+                        className="capitalize"
+                        icon={
+                          emp.status === "active" ? (
+                            <CheckOutlined />
+                          ) : (
+                            <FileExcelOutlined />
+                          )
+                        }
+                      >
+                        {emp.status}
+                      </Tag>
+                    </p>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </>
   );
