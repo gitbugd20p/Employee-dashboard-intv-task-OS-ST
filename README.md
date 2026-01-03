@@ -1,98 +1,238 @@
-# ⚛️ React + Vite + Tailwind CSS 4.1 Starter
+# Employee Dashboard (Interview Task)
 
-This is a minimal but powerful starter template using **React**, **Vite**, and **Tailwind CSS 4.1**. It includes:
+A feature-rich **Employee Management Dashboard** built as part of an interview task. The project simulates a real-world admin panel with CRUD operations, persistent storage, advanced search & filtering, and a modern UI using **React**, **Ant Design**, and **Tailwind CSS**.
 
--   ✅ React (with Fast Refresh)
--   ⚡ Vite (super fast bundler)
--   🎨 Tailwind CSS 4.1 (utility-first CSS framework)
--   🧹 ESLint (basic linting setup)
--   💅 Prettier-ready (optional via your editor)
--   📁 Example component structure
+🔗 **GitHub Repository**: [https://github.com/gitbugd20p/Employee-dashboard-intv-task-OS-ST](https://github.com/gitbugd20p/Employee-dashboard-intv-task-OS-ST)
 
 ---
 
-## 📦 Tech Stack
+## 📌 Project Goal
 
--   **React** — UI library
--   **Vite** — Lightning-fast development build tool
--   **Tailwind CSS 4.1** — Latest version, utility-first styling
--   **ESLint** — For catching code issues early
--   **Optional Tools**:
+Enhance a basic employee management system into an **interactive admin dashboard** by implementing:
 
-    -   Prettier (configured via your editor)
-    -   React Router, Zustand, etc. — add as needed later
+- Persistent CRUD operations
+- Advanced filtering and search
+- Responsive UI with multiple views
+- Clean UX patterns commonly used in production dashboards
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Tech Stack
 
-```
-.
-├── public/
-│   └── vite.svg
-├── src/
+### Frontend
+
+- **React 19** (Vite)
+- **Ant Design (antd)** – UI components
+- **Tailwind CSS** – utility-first styling
+- **Day.js** – date handling
+
+### Tooling
+
+- Vite
+- ESLint + Prettier
+- LocalStorage (for persistence)
+
+---
+
+## 📂 Project Structure
+
+```text
+Employee Dashboard - submitted task
+├── src
+│   ├── components
+│   │   └── employees
+│   │       ├── AddEmployeeDrawer.jsx
+│   │       ├── EditEmployeeDrawer.jsx
+│   │       ├── EmployeeTable.jsx
+│   │       └── MultiFilterEmployee.jsx
+│   ├── hooks
+│   │   └── useEmployees.js
+│   ├── pages
+│   │   └── Employees.jsx
+│   ├── utils
+│   │   └── localStorageFc.js
+│   ├── assets
 │   ├── App.jsx
-│   ├── App.css
-│   ├── main.jsx
-│   ├── index.css
-│   ├── components/
-│   │   └── ExampleComponent.jsx
-│   └── assets/
-│       ├── images/
-│       ├── react.svg
-│       └── styles/
-│           └── styles.css
+│   └── main.jsx
 ├── index.html
-├── package.json
-├── vite.config.js
-├── eslint.config.js
-├── README.md
-└── .gitignore
+└── package.json
 ```
 
 ---
 
-## 🚀 Getting Started
+## ✨ Implemented Features
 
-### Install dependencies
+### 1️⃣ Full CRUD with Persistent Storage
+
+- Create, Read, Update employees
+- Soft delete using **Archived** status
+- Data persistence using **localStorage**
+- Loading state handled with AntD `<Spin />`
+
+### 2️⃣ Enhanced Edit Flow
+
+- Edit employee using **AntD Drawer** (instead of modal)
+- Form pre-filled with existing employee data
+- Separate Add & Edit drawers for better UX
+
+### 3️⃣ Soft Delete (Archive)
+
+- Employees are marked as `archived` instead of being removed
+- Toggle switch to view **Active / Archived** employees
+- Status visually represented using AntD `Tag`
+
+---
+
+## 🔍 Search & Filtering
+
+### 4️⃣ Global Search (Debounced)
+
+- 500ms debounce using `useEffect + setTimeout`
+- Searches across:
+
+  - Name
+  - Department
+  - Role
+  - Status
+
+### 5️⃣ Multi-Filter System
+
+- Department filter (Dropdown)
+- Role filter (Dropdown)
+- Joining date range filter (RangePicker)
+- Combined filtering using `useMemo` for performance
+
+---
+
+## 🎨 UI / UX Enhancements
+
+### 6️⃣ Responsive Layout
+
+- **Table View** (default)
+- **Card View** (toggle)
+- Grid-based responsive card layout
+
+### 7️⃣ Performance Score (Bonus)
+
+- Performance score (1–100)
+- Visualized using AntD **Progress (dashboard type)**
+- Dynamic color based on score value
+  🔴 0-20 | 🟠 21-40 | 🟡 41-60 | 🔵 61-80 | 🟢 81-100
+
+### 8️⃣ Empty State Handling
+
+- Friendly empty state using AntD `<Empty />`
+- Call-to-action to add first employee
+
+### 9️⃣ Pagination
+
+- AntD Table built-in pagination
+- Items-per-page selector
+
+---
+
+## 🧠 Core Logic Overview
+
+### Custom Hook – `useEmployees`
+
+Responsibilities:
+
+- Load employee data from localStorage
+- Persist updates automatically
+- Provide CRUD methods:
+
+  - `addEmployee`
+  - `updateEmployee`
+  - `archiveEmployee`
+
+### Local Storage Utility
+
+- Centralized helper functions:
+
+  - `loadFromLocalStorage()`
+  - `saveToLocalStorage()`
+  - `removeFromLocalStorage()`
+
+Ensures clean separation of concerns.
+
+---
+
+## ⚠️ Known Limitations
+
+The following features are **planned but not fully implemented yet**:
+
+### ❌ Sorting (Future Work)
+
+- Sorting UI exists on table columns
+- Sorting logic is **not yet functional**
+- Sort state persistence via localStorage planned
+
+### ❌ Date Validation
+
+- Joining date can currently select future dates
+- Validation rule to block future dates will be added
+
+---
+
+## 🚀 Future Improvements
+
+- ✅ Column sorting with persisted state
+- ✅ Prevent future date selection in DatePicker
+- 🔄 Mock API integration (JSON Server)
+- 🔔 Toast notifications on Add / Edit / Archive
+- 🧪 Unit testing for hooks & components
+- 🌙 Dark mode toggle
+- 📤 Export employee list (CSV / Excel)
+- 🔐 Role-based access simulation (Admin / Viewer)
+
+---
+
+## 🏁 Getting Started
 
 ```bash
+# Install dependencies
 npm install
-```
 
-### Run the development server
-
-```bash
+# Run development server
 npm run dev
 ```
-
-### Build for production
-
-```bash
-npm run build
-```
-
----
-
-## 🧠 Notes
-
--   **Tailwind CSS 4.1** works out of the box — no need for `tailwind.config.js` unless you want to customize it.
--   **ESLint** is included for basic linting; feel free to expand it as your project grows.
--   **Prettier** is assumed to be handled via your editor setup (optional: add `.prettierrc` for team consistency).
-
----
-
-## 🛠 Customization Ideas
-
--   Add `react-router-dom` if you need client-side routing.
--   Add `.env` support for environment variables.
--   Add state management (e.g., Zustand, Redux) as needed.
--   Add Prettier config or Husky + lint-staged for Git hooks (optional).
 
 ---
 
 ## 📄 License
 
-MIT — free to use, modify, and share.
+This project was created for **interview evaluation purposes** and learning.
+
+---
+
+## 👤 Author
+
+**Md Sabur**
+Junior Frontend Developer (React)
+
+- 🐙 **GitHub**: [https://github.com/gitbugd20p](https://github.com/gitbugd20p)
+- 💼 Aspiring **Junior React Developer / Frontend Intern**
+
+---
+
+## 🌐 Live Demo
+
+🚀 **Live Application**: _Coming soon (Vercel deployment)_
+
+> The project will be hosted on **Vercel**. Once deployed, this section will be updated with the live URL.
+
+---
+
+## 📸 Screenshots
+
+> Screenshots will be added after deployment to showcase:
+
+- Employee Table View
+- Card View Layout
+- Add Employee Drawer
+- Edit Employee Drawer
+- Filter & Search UI
+
+_(Recommended: 1200px width screenshots for best GitHub rendering)_
 
 ---

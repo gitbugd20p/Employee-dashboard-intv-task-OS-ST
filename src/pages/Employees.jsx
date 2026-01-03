@@ -186,7 +186,7 @@ const Employees = () => {
   return (
     <>
       <div className="w-full">
-        <h1 className="py-8 text-4xl font-bold">Employee Records</h1>
+        <h1 className="pt-4 text-4xl font-bold">Employee Records</h1>
 
         <Space className="w-full">
           {/* Add employee button (drawer) */}

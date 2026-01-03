@@ -117,6 +117,7 @@ const EmployeeTable = ({ data, onEdit, onArchive }) => {
       style={{
         margin: "24px 16px",
         padding: 16,
+        boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px"
       }}
     />
   );
