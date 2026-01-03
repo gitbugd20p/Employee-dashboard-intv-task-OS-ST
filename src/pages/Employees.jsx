@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   Empty,
+  Input,
   Progress,
   Radio,
   Space,
@@ -16,10 +17,9 @@ import { useEffect, useMemo, useState } from "react";
 import AddEmployeeDrawer from "../components/employees/AddEmployeeDrawer";
 import { useEmployees } from "./../hooks/useEmployees";
 import EditEmployeeDrawer from "../components/employees/EditEmployeeDrawer";
-import Search from "antd/es/transfer/search";
 import MultiFilterEmployee from "../components/employees/MultiFilterEmployee";
-import dayjs from "dayjs";
 
+import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import {
   CheckOutlined,
@@ -27,6 +27,8 @@ import {
   FileExcelOutlined,
 } from "@ant-design/icons";
 dayjs.extend(isBetween);
+
+const { Search } = Input;
 
 const Employees = () => {
   // Employee info with functions
@@ -271,7 +273,7 @@ const Employees = () => {
             onArchive={archiveEmployee}
           />
         ) : (
-          <div className="grid grid-cols-4 gap-3 p-8">
+          <div className="grid grid-cols-1 gap-6 p-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredEmployees.map((emp) => {
               const actions = [
                 <Tooltip title="Edit Employee" key="edit">
@@ -282,7 +284,7 @@ const Employees = () => {
                     }}
                   />
                 </Tooltip>,
-                <Tooltip title="ARchive Employee" key="archive">
+                <Tooltip title="Archive Employee" key="archive">
                   <FileExcelOutlined onClick={() => archiveEmployee(emp.id)} />
                 </Tooltip>,
               ];
@@ -315,14 +317,22 @@ const Employees = () => {
                       </div>
                       <div>
                         <div className="p-2 text-center">
-                          <Progress
-                            type="dashboard"
-                            percent={emp.performanceScore}
-                            size="small"
-                            strokeColor={performanceScoreColor(
-                              emp.performanceScore,
-                            )}
-                          />
+                          {emp.performanceScore ? (
+                            <Progress
+                              type="dashboard"
+                              percent={emp.performanceScore}
+                              size="small"
+                              strokeColor={performanceScoreColor(
+                                emp.performanceScore,
+                              )}
+                            />
+                          ) : (
+                            <Progress
+                              type="dashboard"
+                              size="small"
+                              format={() => "N/A"}
+                            />
+                          )}
                         </div>
                         <p>
                           <strong>
