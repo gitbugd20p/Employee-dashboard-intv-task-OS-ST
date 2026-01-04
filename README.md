@@ -6,6 +6,39 @@ A feature-rich **Employee Management Dashboard** built as part of an interview t
 
 ---
 
+## 🌐 Live Demo
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://employee-dashboard-intv-task-os-st.vercel.app/)
+
+🚀 **Deployed on Vercel**  
+👉 https://employee-dashboard-intv-task-os-st.vercel.app/
+
+---
+
+## 📸 Screenshots
+
+### 🧾 Employee Table View
+
+![Employee Table View](./screenshots/table-view.png)
+
+### 🗂️ Card View Layout
+
+![Card View Layout](./screenshots/card-view.png)
+
+### ➕ Add Employee Drawer
+
+![Add Employee Drawer](./screenshots/add-employee-drawer.png)
+
+### ✏️ Edit Employee Drawer
+
+![Edit Employee Drawer](./screenshots/edit-employee-drawer.png)
+
+### 🔍 Filter & Search UI
+
+![Filter & Search UI](./screenshots/search-and-filter-result.png)
+
+---
+
 ## 📌 Project Goal
 
 Enhance a basic employee management system into an **interactive admin dashboard** by implementing:
@@ -14,49 +47,6 @@ Enhance a basic employee management system into an **interactive admin dashboard
 - Advanced filtering and search
 - Responsive UI with multiple views
 - Clean UX patterns commonly used in production dashboards
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-- **React 19** (Vite)
-- **Ant Design (antd)** – UI components
-- **Tailwind CSS** – utility-first styling
-- **Day.js** – date handling
-
-### Tooling
-
-- Vite
-- ESLint + Prettier
-- LocalStorage (for persistence)
-
----
-
-## 📂 Project Structure
-
-```text
-Employee Dashboard - submitted task
-├── src
-│   ├── components
-│   │   └── employees
-│   │       ├── AddEmployeeDrawer.jsx
-│   │       ├── EditEmployeeDrawer.jsx
-│   │       ├── EmployeeTable.jsx
-│   │       └── MultiFilterEmployee.jsx
-│   ├── hooks
-│   │   └── useEmployees.js
-│   ├── pages
-│   │   └── Employees.jsx
-│   ├── utils
-│   │   └── localStorageFc.js
-│   ├── assets
-│   ├── App.jsx
-│   └── main.jsx
-├── index.html
-└── package.json
-```
 
 ---
 
@@ -131,6 +121,23 @@ Employee Dashboard - submitted task
 
 ---
 
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **React 19** (Vite)
+- **Ant Design (antd)** – UI components
+- **Tailwind CSS** – utility-first styling
+- **Day.js** – date handling
+
+### Tooling
+
+- Vite
+- ESLint + Prettier
+- LocalStorage (for persistence)
+
+---
+
 ## 🧠 Core Logic Overview
 
 ### Custom Hook – `useEmployees`
@@ -187,6 +194,32 @@ The following features are **planned but not fully implemented yet**:
 
 ---
 
+## 📂 Project Structure
+
+```text
+Employee Dashboard - submitted task
+├── src
+│   ├── components
+│   │   └── employees
+│   │       ├── AddEmployeeDrawer.jsx
+│   │       ├── EditEmployeeDrawer.jsx
+│   │       ├── EmployeeTable.jsx
+│   │       └── MultiFilterEmployee.jsx
+│   ├── hooks
+│   │   └── useEmployees.js
+│   ├── pages
+│   │   └── Employees.jsx
+│   ├── utils
+│   │   └── localStorageFc.js
+│   ├── assets
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+└── package.json
+```
+
+---
+
 ## 🏁 Getting Started
 
 ```bash
@@ -196,12 +229,6 @@ npm install
 # Run development server
 npm run dev
 ```
-
----
-
-## 📄 License
-
-This project was created for **interview evaluation purposes** and learning.
 
 ---
 
@@ -215,24 +242,8 @@ Junior Frontend Developer (React)
 
 ---
 
-## 🌐 Live Demo
+## 📄 License
 
-🚀 **Live Application**: _Coming soon (Vercel deployment)_
-
-> The project will be hosted on **Vercel**. Once deployed, this section will be updated with the live URL.
-
----
-
-## 📸 Screenshots
-
-> Screenshots will be added after deployment to showcase:
-
-- Employee Table View
-- Card View Layout
-- Add Employee Drawer
-- Edit Employee Drawer
-- Filter & Search UI
-
-_(Recommended: 1200px width screenshots for best GitHub rendering)_
+This project was created for **interview evaluation purposes** and learning.
 
 ---
