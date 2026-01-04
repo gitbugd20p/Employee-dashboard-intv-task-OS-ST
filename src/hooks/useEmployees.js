@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { sampleDB } from "./../db/sampleDB";
 import {
   loadFromLocalStorage,
   saveToLocalStorage,
@@ -63,11 +64,22 @@ export const useEmployees = () => {
     );
   };
 
+  // load sample data
+  const loadSampleData = () => {
+    try {
+      saveToLocalStorage(sampleDB);
+      setAllEmployees(sampleDB);
+    } catch (error) {
+      console.log("Failed to load sample data!", error);
+    }
+  };
+
   return {
     allEmployees,
     loading,
     addEmployee,
     updateEmployee,
     archiveEmployee,
+    loadSampleData,
   };
 };

@@ -23,8 +23,10 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import {
   CheckOutlined,
+  DownloadOutlined,
   EditOutlined,
   FileExcelOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 dayjs.extend(isBetween);
 
@@ -38,6 +40,7 @@ const Employees = () => {
     addEmployee,
     updateEmployee,
     archiveEmployee,
+    loadSampleData,
   } = useEmployees();
 
   // Add drawer state
@@ -158,18 +161,39 @@ const Employees = () => {
 
   if (allEmployees.length === 0) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-4">
+      <div className="flex h-full flex-col items-center justify-center gap-4 pb-4">
         {/* Empty data state */}
         <Empty description="NO Data..." />
 
-        <h1 className="text-4xl font-semibold">
-          To see employee data, Add employee...
+        {/* Add employee data */}
+        <h1 className="pb-2 text-4xl font-semibold text-gray-800">
+          To see employee data, <strong className="text-blue-700">Add</strong>{" "}
+          employee... or <strong className="text-purple-700">Try</strong> sample
+          data...
         </h1>
 
-        {/* Add employee */}
+        {/* Add employee button*/}
         <Space>
-          <Button onClick={() => setOpenDrawer(true)} type="primary">
+          <Button
+            onClick={() => setOpenDrawer(true)}
+            type="primary"
+            icon={<UserAddOutlined />}
+          >
             Add Employee
+          </Button>
+        </Space>
+
+        {/* Sample data button*/}
+        <Space>
+          <Button
+            type="primary"
+            color="purple"
+            variant="solid"
+            size="large"
+            icon={<DownloadOutlined />}
+            onClick={loadSampleData}
+          >
+            Load Sample Data...
           </Button>
         </Space>
 

@@ -121,6 +121,20 @@ Enhance a basic employee management system into an **interactive admin dashboard
 
 ---
 
+## 🎁 Extra
+
+The following features were implemented beyond the original task requirements to improve usability and reviewer experience:
+
+### 🧪 Preloaded Sample Data (Demo Mode)
+
+- When the app has no employee data, a friendly empty state is shown
+- Includes a **“Load Sample Data”** button
+- Instantly populates the dashboard with predefined employee records
+- Allows reviewers to explore all features without manually adding data
+- Uses the same data structure as standard CRUD operations
+
+---
+
 ## 🛠️ Tech Stack
 
 ### Frontend
